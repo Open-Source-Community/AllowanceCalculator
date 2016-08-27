@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AllowanceCalculator</string>
+    <string name="action_new">New</string>
+    <string name="title_activity_new_comer">NewComer</string>
+</resources>
