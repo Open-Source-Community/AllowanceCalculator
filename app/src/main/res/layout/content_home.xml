@@ -13,5 +13,192 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.osc.allowancecalculator.Home"
     tools:showIn="@layout/activity_home">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:weightSum="5">
+    <TextView
+        android:id="@+id/moneyvalue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#3F51B5"
+        android:textSize="25sp"
+                android:text="0"
+        android:gravity="center"
+        android:layout_weight="4"/>
+   <Button
+       android:background="@android:color/transparent"
+       android:layout_width="0dp"
+       android:layout_weight="1"
+       android:layout_height="wrap_content"
+       android:onClick="Delete"
+       android:drawableLeft="@drawable/ic_cancel"/>
+   </LinearLayout>
 
-</LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="3"
+            android:layout_height="0dp">
+            <Button
+
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="1"
+                android:tag="1"
+                android:textSize="50sp"
+                android:textColor="#3F51B5"
+                android:layout_weight="1"
+                android:onClick="ButtonClick"/>
+
+
+            <Button
+                android:background="@android:color/transparent"
+                android:textColor="#3F51B5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="2"
+                android:tag="2"
+                android:textSize="50sp"
+                android:onClick="ButtonClick"/>
+
+            <Button
+                android:tag="3"
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#3F51B5"
+                android:layout_weight="1"
+                android:text="3"
+                android:textSize="50sp"
+                android:onClick="ButtonClick"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <Button
+                android:tag="4"
+                android:background="@android:color/transparent"
+                android:textColor="#3F51B5"
+                android:layout_width="0dp"
+                android:text="4"
+                android:textSize="50sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="ButtonClick"/>
+
+            <Button
+                android:tag="5"
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:textColor="#3F51B5"
+                android:layout_height="match_parent"
+                android:text="5"
+                android:textSize="50sp"
+                android:layout_weight="1"
+                android:onClick="ButtonClick"/>
+
+            <Button
+                android:tag="6"
+                android:background="@android:color/transparent"
+                android:textColor="#3F51B5"
+                android:layout_width="0dp"
+                android:text="6"
+                android:textSize="50sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="ButtonClick"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <Button
+                android:tag="7"
+                android:background="@android:color/transparent"
+                android:textColor="#3F51B5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="7"
+                android:textSize="50sp"
+                android:onClick="ButtonClick"/>
+
+            <Button
+                android:tag="8"
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#3F51B5"
+                android:layout_weight="1"
+                android:text="8"
+                android:textSize="50sp"
+                android:onClick="ButtonClick"/>
+
+            <Button
+                android:tag="9"
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:textColor="#3F51B5"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="9"
+                android:textSize="50sp"
+                android:onClick="ButtonClick"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <Button
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:textColor="#3F51B5"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="-"
+                android:textSize="50sp"
+                android:onClick="Sub"
+                />
+
+            <Button
+                android:tag="0"
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="#3F51B5"
+                android:layout_weight="1"
+                android:text="0"
+                android:textSize="50sp"
+                android:onClick="ButtonClick"/>
+
+            <Button
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="+"
+                android:onClick="Add"
+                android:textSize="50sp"
+                android:textColor="#3F51B5"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+

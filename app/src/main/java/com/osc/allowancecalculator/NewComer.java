@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class NewComer extends AppCompatActivity {
-    long numberOfDays;
+    long numberOfDays=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,18 +28,23 @@ public class NewComer extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-              @Override
+            @Override
             public void onClick(View v) {
-                  EditText moneyEditText=(EditText) findViewById(R.id.totalmoney);
-                  double money=Double.parseDouble(moneyEditText.getText().toString());
-                  SharedPreferences moneyData=getSharedPreferences("moneydata",MODE_PRIVATE);
-                  SharedPreferences.Editor moneyDataEditor=moneyData.edit();
-                  moneyDataEditor.putFloat("totalmoney", (float) money);
-                  moneyDataEditor.putLong("numberofdays",numberOfDays);
-                  moneyDataEditor.putFloat("oneday", (float) (money/numberOfDays));
-                  moneyDataEditor.commit();
-                  Intent homeIntent=new Intent(NewComer.this,Home.class);
-                  startActivity(homeIntent);
+                EditText moneyEditText=(EditText) findViewById(R.id.totalmoney);
+                if(moneyEditText.getText().equals("")||numberOfDays==0){
+                    Toast.makeText(NewComer.this,"برجاء ادخال المبلغ واليوم",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    long money = Long.parseLong(moneyEditText.getText().toString());
+                    SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
+                    SharedPreferences.Editor moneyDataEditor = moneyData.edit();
+                    moneyDataEditor.putLong("totalmoney",  money);
+                    moneyDataEditor.putLong("numberofdays", numberOfDays);
+                    moneyDataEditor.putLong("oneday", (money / numberOfDays));
+                    moneyDataEditor.commit();
+                    Intent homeIntent = new Intent(NewComer.this, Home.class);
+                    startActivity(homeIntent);
+                }
             }
         });
         ImageView calendar=(ImageView) findViewById(R.id.calendar);
@@ -54,6 +59,10 @@ public class NewComer extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int endyear, int monthOfYear, int dayOfMonth) {
                         Calendar today=Calendar.getInstance();
+                        SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
+                        SharedPreferences.Editor moneyDataEditor = moneyData.edit();
+                        moneyDataEditor.putString("date",dayOfMonth+"/"+monthOfYear+"/"+endyear);
+                        moneyDataEditor.commit();
                         today.set(year,month,day);
                         Calendar endDate=Calendar.getInstance();
                         endDate.set(endyear,monthOfYear,dayOfMonth);
@@ -61,13 +70,13 @@ public class NewComer extends AppCompatActivity {
                         numberOfDays=difference/ (24 * 60 * 60 * 1000);
                         numberOfDays++;
                         if(numberOfDays==1) {
-                            Toast.makeText(NewComer.this,"يوم واحد",Toast.LENGTH_LONG).show();
+                            Toast.makeText(NewComer.this,"يوم",Toast.LENGTH_LONG).show();
                         }else if(numberOfDays==2){
                             Toast.makeText(NewComer.this,"يومين",Toast.LENGTH_LONG).show();
                         }else if(numberOfDays>=3&&numberOfDays<=10){
-                            Toast.makeText(NewComer.this,numberOfDays+"ايام",Toast.LENGTH_LONG).show();
+                            Toast.makeText(NewComer.this,numberOfDays+" ايام ",Toast.LENGTH_LONG).show();
                         }else {
-                            Toast.makeText(NewComer.this,numberOfDays+"يوم",Toast.LENGTH_LONG).show();
+                            Toast.makeText(NewComer.this,numberOfDays+" يوم ",Toast.LENGTH_LONG).show();
                         }
                     }
                 },year,month,day);
