@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Set;
+
 public class Home extends AppCompatActivity {
 
     @Override
@@ -23,124 +25,12 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         SharedPreferences moneyData=getSharedPreferences("moneydata",MODE_PRIVATE);
         float totalMoney=moneyData.getFloat("totalmoney",0.0f);
         long numberOfDays=moneyData.getLong("numberofdays",0);
         float oneDayMoney=moneyData.getFloat("oneday",0.0f);
-        TextView totalMoneyTextView=(TextView) findViewById(R.id.total);
-        totalMoneyTextView.setText(totalMoney+"");
-        TextView oneDayTextView=(TextView) findViewById(R.id.one);
-        oneDayTextView.setText(oneDayMoney+"");
-        if(numberOfDays>=7)
-        {
-            TextView sevenDayTextView=(TextView) findViewById(R.id.seven);
-            sevenDayTextView.setText(oneDayMoney*7+"");
-        }
-        if(numberOfDays>=30)
-        {
-            TextView monthMoneyTextView=(TextView)findViewById(R.id.month);
-            monthMoneyTextView.setText(oneDayMoney*30+"");
-        }
-        final toan.android.floatingactionmenu.FloatingActionButton add=(toan.android.floatingactionmenu.FloatingActionButton) findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog addDialog=new Dialog(Home.this);
-                addDialog.setContentView(R.layout.adddialog);
-                addDialog.show();
-                Button approve=(Button) addDialog.findViewById(R.id.approv);
-                approve.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SharedPreferences moneyData=getSharedPreferences("moneydata",MODE_PRIVATE);
-                        float totalMoney=moneyData.getFloat("totalmoney",0.0f);
-                        long numberOfDays=moneyData.getLong("numberofdays",0);
-                        float oneDayMoney=moneyData.getFloat("oneday",0.0f);
-                        EditText addMoneyEditText =(EditText) addDialog.findViewById(R.id.addmoney);
-                        float addMoney=Float.parseFloat(addMoneyEditText.getText().toString());
-                        SharedPreferences.Editor moneyDataEditor=moneyData.edit();
-                        moneyDataEditor.putFloat("totalmoney",addMoney+totalMoney);
-                        moneyDataEditor.putFloat("oneday",addMoney+oneDayMoney);
-                        moneyDataEditor.commit();
-                        totalMoney=moneyData.getFloat("totalmoney",0.0f);
-                        numberOfDays=moneyData.getLong("numberofdays",0);
-                        oneDayMoney=moneyData.getFloat("oneday",0.0f);
-                        TextView totalMoneyTextView=(TextView) findViewById(R.id.total);
-                        totalMoneyTextView.setText(totalMoney+"");
-                        TextView oneDayTextView=(TextView) findViewById(R.id.one);
-                        oneDayTextView.setText(oneDayMoney+"");
-                        if(numberOfDays>=7)
-                        {
-                            TextView sevenDayTextView=(TextView) findViewById(R.id.seven);
-                            sevenDayTextView.setText(oneDayMoney*7+"");
-                        }
-                        if(numberOfDays>=30)
-                        {
-                            TextView monthMoneyTextView=(TextView)findViewById(R.id.month);
-                            monthMoneyTextView.setText(oneDayMoney*30+"");
-                        }
-                        addDialog.dismiss();
-                    }
-                });
-                Button cancel=(Button) addDialog.findViewById(R.id.cancel);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addDialog.dismiss();
-                    }
-                });
-            }
-        });
-        toan.android.floatingactionmenu.FloatingActionButton sub=(toan.android.floatingactionmenu.FloatingActionButton) findViewById(R.id.sub);
-        sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog subDialog=new Dialog(Home.this);
-                subDialog.setContentView(R.layout.subdialog);
-                subDialog.show();
-                Button approve=(Button) subDialog.findViewById(R.id.approv);
-                approve.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SharedPreferences moneyData=getSharedPreferences("moneydata",MODE_PRIVATE);
-                        float totalMoney=moneyData.getFloat("totalmoney",0.0f);
-                        long numberOfDays=moneyData.getLong("numberofdays",0);
-                        float oneDayMoney=moneyData.getFloat("oneday",0.0f);
-                        EditText addMoneyEditText =(EditText) subDialog.findViewById(R.id.submoney);
-                        float addMoney=Float.parseFloat(addMoneyEditText.getText().toString());
-                        SharedPreferences.Editor moneyDataEditor=moneyData.edit();
-                        moneyDataEditor.putFloat("totalmoney",totalMoney-addMoney);
-                        moneyDataEditor.putFloat("oneday",oneDayMoney-addMoney);
-                        moneyDataEditor.commit();
-                        totalMoney=moneyData.getFloat("totalmoney",0.0f);
-                        numberOfDays=moneyData.getLong("numberofdays",0);
-                        oneDayMoney=moneyData.getFloat("oneday",0.0f);
-                        TextView totalMoneyTextView=(TextView) findViewById(R.id.total);
-                        totalMoneyTextView.setText(totalMoney+"");
-                        TextView oneDayTextView=(TextView) findViewById(R.id.one);
-                        oneDayTextView.setText(oneDayMoney+"");
-                        if(numberOfDays>=7)
-                        {
-                            TextView sevenDayTextView=(TextView) findViewById(R.id.seven);
-                            sevenDayTextView.setText(oneDayMoney*7+"");
-                        }
-                        if(numberOfDays>=30)
-                        {
-                            TextView monthMoneyTextView=(TextView)findViewById(R.id.month);
-                            monthMoneyTextView.setText(oneDayMoney*30+"");
-                        }
-                        subDialog.dismiss();
-                    }
-                });
-                Button cancel=(Button) subDialog.findViewById(R.id.cancel);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        subDialog.dismiss();
-                    }
-                });
-             }
-        });
+
     }
 
     @Override
