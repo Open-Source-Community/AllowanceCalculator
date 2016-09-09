@@ -45,9 +45,6 @@ public class Home extends AppCompatActivity {
 
         // this condition moved to recalculator function,  we may remove it later
         if (numberOfDays == 0) {
-            AlertDialog.Builder fineDialog = new AlertDialog.Builder(Home.this);
-            fineDialog.setMessage("الايام خلصت وباقى معاك" + totalMoney);
-            fineDialog.show();
             SharedPreferences moneyData2 = getSharedPreferences("moneydata", MODE_PRIVATE);
             SharedPreferences.Editor moneyDataEditor = moneyData2.edit();
             moneyDataEditor.putLong("totalmoney", 0);
@@ -109,7 +106,7 @@ public class Home extends AppCompatActivity {
             moneyDataEditor.commit();
             totalMoneyTextView.setText(totalMoney + "");
             dayMoneyTextView.setText(oneDayMoney + "");
-
+            moneyvalue.setText("");
         }
     }
 
@@ -124,6 +121,8 @@ public class Home extends AppCompatActivity {
             moneyDataEditor.commit();
             totalMoneyTextView.setText(totalMoney + "");
             dayMoneyTextView.setText(oneDayMoney + "");
+
         }
+        moneyvalue.setText("");
     }
 }

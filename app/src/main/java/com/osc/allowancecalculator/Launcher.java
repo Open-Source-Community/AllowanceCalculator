@@ -26,7 +26,7 @@ public class Launcher extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
+        /*SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
 
 
         Calendar Date = Calendar.getInstance();
@@ -49,7 +49,7 @@ public class Launcher extends AppCompatActivity {
                 days++;
                 recalculate();
             }
-        }
+        }*/
 
 
         new Handler().postDelayed(new Runnable() {
