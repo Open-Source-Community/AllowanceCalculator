@@ -22,10 +22,9 @@
         android:id="@+id/moneyvalue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:singleLine="true"
         android:textColor="#3F51B5"
         android:textSize="25sp"
-                android:text="0"
+        android:text="0"
         android:gravity="center"
         android:layout_weight="4"/>
    <Button

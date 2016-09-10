@@ -35,11 +35,16 @@ public class Home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
-        totalMoney = moneyData.getLong("totalmoney", 0);
+        totalMoney = moneyData.getLong("totalmoney", -1);
         numberOfDays = moneyData.getLong("numberofdays", -1);
-        oneDayMoney = moneyData.getLong("oneday", 0);
+        oneDayMoney = moneyData.getLong("oneday", -1);
+        if(totalMoney==-1&&numberOfDays==-1&&oneDayMoney==-1) {
+            Intent newComerIntent =new Intent(Home.this,NewComer.class);
+            startActivity(newComerIntent);
+        }
         totalMoneyTextView= (TextView) findViewById(R.id.total);
         dayMoneyTextView = (TextView) findViewById(R.id.day);
+        moneyvalue = (TextView) findViewById(R.id.moneyvalue);
         totalMoneyTextView.setText(totalMoney + "");
         dayMoneyTextView.setText(oneDayMoney + "");
 
@@ -56,7 +61,6 @@ public class Home extends AppCompatActivity {
 
     public void ButtonClick(View view) {
 
-        moneyvalue = (TextView) findViewById(R.id.moneyvalue);
         if(moneyvalue.getText().toString().equals("0"))
             moneyvalue.setText("");
         moneyvalue.append(view.getTag().toString());
@@ -88,41 +92,47 @@ public class Home extends AppCompatActivity {
 
     public void Delete(View view)
     {
-        if(moneyvalue.getText().toString().equals("")==false)
-        moneyvalue.setText((moneyvalue.getText().toString()).substring(0,(moneyvalue.getText().toString()).length()-1));
+        if(moneyvalue.getText().toString().equals("")==false){
+            moneyvalue.setText((moneyvalue.getText().toString()).substring(0,(moneyvalue.getText().toString()).length()-1));
+        }
+        else {
 
+        }
     }
 
 
 
     public void Add(View view) {
-        if (numberOfDays!=-1) {
-            totalMoney += Long.parseLong(moneyvalue.getText().toString());
-            SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
-            SharedPreferences.Editor moneyDataEditor = moneyData.edit();
-            moneyDataEditor.putLong("totalmoney",  totalMoney);
-            oneDayMoney+= Long.parseLong(moneyvalue.getText().toString());
-            moneyDataEditor.putLong("oneday",oneDayMoney);
-            moneyDataEditor.commit();
-            totalMoneyTextView.setText(totalMoney + "");
-            dayMoneyTextView.setText(oneDayMoney + "");
-            moneyvalue.setText("");
+        if(!moneyvalue.getText().equals("")) {
+            if (numberOfDays != -1) {
+                totalMoney += Long.parseLong(moneyvalue.getText().toString());
+                SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
+                SharedPreferences.Editor moneyDataEditor = moneyData.edit();
+                moneyDataEditor.putLong("totalmoney", totalMoney);
+                oneDayMoney += Long.parseLong(moneyvalue.getText().toString());
+                moneyDataEditor.putLong("oneday", oneDayMoney);
+                moneyDataEditor.commit();
+                totalMoneyTextView.setText(totalMoney + "");
+                dayMoneyTextView.setText(oneDayMoney + "");
+                moneyvalue.setText("");
+            }
         }
     }
 
     public void Sub(View view) {
-        if (numberOfDays!=-1) {
-            totalMoney -= Long.parseLong(moneyvalue.getText().toString());
-            SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
-            SharedPreferences.Editor moneyDataEditor = moneyData.edit();
-            moneyDataEditor.putLong("totalmoney", totalMoney);
-            oneDayMoney -= Long.parseLong(moneyvalue.getText().toString());
-            moneyDataEditor.putLong("oneday", oneDayMoney);
-            moneyDataEditor.commit();
-            totalMoneyTextView.setText(totalMoney + "");
-            dayMoneyTextView.setText(oneDayMoney + "");
-
+        if(!moneyvalue.getText().equals("")) {
+            if (numberOfDays != -1) {
+                totalMoney -= Long.parseLong(moneyvalue.getText().toString());
+                SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
+                SharedPreferences.Editor moneyDataEditor = moneyData.edit();
+                moneyDataEditor.putLong("totalmoney", totalMoney);
+                oneDayMoney -= Long.parseLong(moneyvalue.getText().toString());
+                moneyDataEditor.putLong("oneday", oneDayMoney);
+                moneyDataEditor.commit();
+                totalMoneyTextView.setText(totalMoney + "");
+                dayMoneyTextView.setText(oneDayMoney + "");
+                moneyvalue.setText("");
+            }
         }
-        moneyvalue.setText("");
     }
 }

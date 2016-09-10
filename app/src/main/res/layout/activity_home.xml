@@ -38,9 +38,8 @@
                     android:src="@drawable/ic_funds"/>
                 <TextView
                     android:id="@+id/total"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
                     android:textSize="25sp"
                     android:textColor="@android:color/white"
                     android:text="0.0"
@@ -49,9 +48,8 @@
 
             <TextView
                 android:id="@+id/day"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:textSize="75sp"
                 android:textColor="@android:color/white"
                 android:text="0.0"
