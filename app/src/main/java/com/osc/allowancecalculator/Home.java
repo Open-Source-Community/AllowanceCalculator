@@ -22,9 +22,9 @@ import android.util.Log;
 import java.util.Set;
 
 public class Home extends AppCompatActivity {
-    long oneDayMoney;
+    float oneDayMoney;
     long numberOfDays;
-    long totalMoney;
+    float totalMoney;
     TextView moneyvalue;
     TextView totalMoneyTextView;
     TextView dayMoneyTextView;
@@ -35,9 +35,9 @@ public class Home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
-        totalMoney = moneyData.getLong("totalmoney", -1);
+        totalMoney = moneyData.getFloat("totalmoney", -1);
         numberOfDays = moneyData.getLong("numberofdays", -1);
-        oneDayMoney = moneyData.getLong("oneday", -1);
+        oneDayMoney = moneyData.getFloat("oneday", -1);
         if(totalMoney==-1&&numberOfDays==-1&&oneDayMoney==-1) {
             Intent newComerIntent =new Intent(Home.this,NewComer.class);
             startActivity(newComerIntent);
@@ -52,9 +52,9 @@ public class Home extends AppCompatActivity {
         if (numberOfDays == 0) {
             SharedPreferences moneyData2 = getSharedPreferences("moneydata", MODE_PRIVATE);
             SharedPreferences.Editor moneyDataEditor = moneyData2.edit();
-            moneyDataEditor.putLong("totalmoney", 0);
+            moneyDataEditor.putFloat("totalmoney", 0);
             moneyDataEditor.putLong("numberofdays", numberOfDays);
-            moneyDataEditor.putLong("oneday", 0);
+            moneyDataEditor.putFloat("oneday", 0);
             moneyDataEditor.commit();
         }
     }
@@ -103,14 +103,14 @@ public class Home extends AppCompatActivity {
 
 
     public void Add(View view) {
-        if(!moneyvalue.getText().equals("")) {
+        if(!moneyvalue.getText().equals("")||!moneyvalue.getText().equals(".")) {
             if (numberOfDays != -1) {
-                totalMoney += Long.parseLong(moneyvalue.getText().toString());
+                totalMoney += Float.parseFloat(moneyvalue.getText().toString());
                 SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
                 SharedPreferences.Editor moneyDataEditor = moneyData.edit();
-                moneyDataEditor.putLong("totalmoney", totalMoney);
-                oneDayMoney += Long.parseLong(moneyvalue.getText().toString());
-                moneyDataEditor.putLong("oneday", oneDayMoney);
+                moneyDataEditor.putFloat("totalmoney", totalMoney);
+                oneDayMoney += Float.parseFloat(moneyvalue.getText().toString());
+                moneyDataEditor.putFloat("oneday", oneDayMoney);
                 moneyDataEditor.commit();
                 totalMoneyTextView.setText(totalMoney + "");
                 dayMoneyTextView.setText(oneDayMoney + "");
@@ -120,14 +120,14 @@ public class Home extends AppCompatActivity {
     }
 
     public void Sub(View view) {
-        if(!moneyvalue.getText().equals("")) {
+        if((!moneyvalue.getText().equals(""))||(!moneyvalue.getText().equals("."))) {
             if (numberOfDays != -1) {
-                totalMoney -= Long.parseLong(moneyvalue.getText().toString());
+                totalMoney -= Float.parseFloat(moneyvalue.getText().toString());
                 SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
                 SharedPreferences.Editor moneyDataEditor = moneyData.edit();
-                moneyDataEditor.putLong("totalmoney", totalMoney);
-                oneDayMoney -= Long.parseLong(moneyvalue.getText().toString());
-                moneyDataEditor.putLong("oneday", oneDayMoney);
+                moneyDataEditor.putFloat("totalmoney", totalMoney);
+                oneDayMoney -= Float.parseFloat(moneyvalue.getText().toString());
+                moneyDataEditor.putFloat("oneday", oneDayMoney);
                 moneyDataEditor.commit();
                 totalMoneyTextView.setText(totalMoney + "");
                 dayMoneyTextView.setText(oneDayMoney + "");

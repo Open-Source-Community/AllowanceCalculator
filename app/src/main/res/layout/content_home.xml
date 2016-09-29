@@ -163,19 +163,19 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="4">
+
 
             <Button
+                android:tag="."
                 android:background="@android:color/transparent"
                 android:layout_width="0dp"
-                android:textColor="#3F51B5"
                 android:layout_height="match_parent"
+                android:textColor="#3F51B5"
                 android:layout_weight="1"
-                android:text="-"
+                android:text="."
                 android:textSize="50sp"
-                android:onClick="Sub"
-                />
-
+                android:onClick="ButtonClick"/>
             <Button
                 android:tag="0"
                 android:background="@android:color/transparent"
@@ -187,6 +187,17 @@
                 android:textSize="50sp"
                 android:onClick="ButtonClick"/>
 
+
+            <Button
+                android:background="@android:color/transparent"
+                android:layout_width="0dp"
+                android:textColor="#3F51B5"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="-"
+                android:textSize="50sp"
+                android:onClick="Sub"
+                />
             <Button
                 android:background="@android:color/transparent"
                 android:layout_width="0dp"

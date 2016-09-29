@@ -35,12 +35,12 @@ public class NewComer extends AppCompatActivity {
                     Toast.makeText(NewComer.this,"برجاء ادخال المبلغ واليوم",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    long money = Long.parseLong(moneyEditText.getText().toString());
+                    float money = Float.parseFloat(moneyEditText.getText().toString());
                     SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
                     SharedPreferences.Editor moneyDataEditor = moneyData.edit();
-                    moneyDataEditor.putLong("totalmoney",  money);
+                    moneyDataEditor.putFloat("totalmoney",  money);
                     moneyDataEditor.putLong("numberofdays", numberOfDays);
-                    moneyDataEditor.putLong("oneday", (money / numberOfDays));
+                    moneyDataEditor.putFloat("oneday", (money / numberOfDays));
                     moneyDataEditor.commit();
                     Intent homeIntent = new Intent(NewComer.this, Home.class);
                     startActivity(homeIntent);
