@@ -37,7 +37,10 @@ public class Home extends AppCompatActivity {
         SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
         totalMoney = moneyData.getFloat("totalmoney", -1);
         numberOfDays = moneyData.getLong("numberofdays", -1);
-        oneDayMoney = moneyData.getFloat("oneday", -1);
+        oneDayMoney =totalMoney/numberOfDays;
+        SharedPreferences.Editor moneyDataEditor=moneyData.edit();
+        moneyDataEditor.putFloat("oneday",oneDayMoney);
+        moneyDataEditor.commit();
         if(totalMoney==-1&&numberOfDays==-1&&oneDayMoney==-1) {
             Intent newComerIntent =new Intent(Home.this,NewComer.class);
             startActivity(newComerIntent);
@@ -51,11 +54,11 @@ public class Home extends AppCompatActivity {
         // this condition moved to recalculator function,  we may remove it later
         if (numberOfDays == 0) {
             SharedPreferences moneyData2 = getSharedPreferences("moneydata", MODE_PRIVATE);
-            SharedPreferences.Editor moneyDataEditor = moneyData2.edit();
-            moneyDataEditor.putFloat("totalmoney", 0);
-            moneyDataEditor.putLong("numberofdays", numberOfDays);
-            moneyDataEditor.putFloat("oneday", 0);
-            moneyDataEditor.commit();
+            SharedPreferences.Editor moneyDataEditor2 = moneyData2.edit();
+            moneyDataEditor2.putFloat("totalmoney", 0);
+            moneyDataEditor2.putLong("numberofdays", numberOfDays);
+            moneyDataEditor2.putFloat("oneday", 0);
+            moneyDataEditor2.commit();
         }
     }
 

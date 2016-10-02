@@ -40,7 +40,6 @@ public class NewComer extends AppCompatActivity {
                     SharedPreferences.Editor moneyDataEditor = moneyData.edit();
                     moneyDataEditor.putFloat("totalmoney",  money);
                     moneyDataEditor.putLong("numberofdays", numberOfDays);
-                    moneyDataEditor.putFloat("oneday", (money / numberOfDays));
                     moneyDataEditor.commit();
                     Intent homeIntent = new Intent(NewComer.this, Home.class);
                     startActivity(homeIntent);
