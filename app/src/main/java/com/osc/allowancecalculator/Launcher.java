@@ -15,10 +15,7 @@ import android.view.View;
 import java.util.Calendar;
 
 public class Launcher extends AppCompatActivity {
-    long oneDayMoney;
-    long numberOfDays;
-    long totalMoney;
-    int days;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,71 +23,41 @@ public class Launcher extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
-
-
-        Calendar Date = Calendar.getInstance();
-         int year=Date.get(Calendar.YEAR);
-         int month=Date.get(Calendar.MONTH);
-         int day=Date.get(Calendar.DAY_OF_MONTH);
-        String lastDate = moneyData.getString("date", "-1");
-        if(lastDate.equals("-1")==false){
-            String date=day+"/"+month+"/"+year;
-            char[] last=lastDate.toCharArray();
-            if(!lastDate.equals(date)) {
-                int lastday=last[0];
-                int lastmonth=last[2];
-                int lastyear=last[4];
-                Calendar lastdateCalendar=Calendar.getInstance();
-                lastdateCalendar.set(lastyear,lastmonth,lastday);
-                Date.set(year,month,day);
-                long difference=lastdateCalendar.getTimeInMillis()-Date.getTimeInMillis();
-                days= (int) (difference/ (24 * 60 * 60 * 1000));
-                days++;
-                recalculate();
-            }
-        }*/
-
-
         new Handler().postDelayed(new Runnable() {
            @Override
            public void run() {
+               Calendar Date = Calendar.getInstance();
+               final int year=Date.get(Calendar.YEAR);
+               final int month=Date.get(Calendar.MONTH);
+               final int day=Date.get(Calendar.DAY_OF_MONTH);
+               SharedPreferences date=getSharedPreferences("date",MODE_PRIVATE);
+               int lastyear=date.getInt("year",0);
+               int lastmonth=date.getInt("month",0);
+               int lastday=date.getInt("day",0);
+               if(lastday!=0) {
+                   Calendar today = Calendar.getInstance();
+                   today.set(year, month, day);
+                   Calendar endDate = Calendar.getInstance();
+                   endDate.set(lastyear, lastmonth, lastday);
+                   long difference = endDate.getTimeInMillis() - today.getTimeInMillis();
+                   long diffenceInDays = difference / (24 * 60 * 60 * 1000);
+                   SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
+                   long numberOfDays = moneyData.getLong("numberofdays", -1);
+                   long newNumberOfDays=numberOfDays=diffenceInDays;
+                   SharedPreferences.Editor moneydataEditor=moneyData.edit();
+                   moneydataEditor.putLong("numberofdays",newNumberOfDays);
+                   moneydataEditor.commit();
+                   SharedPreferences.Editor dateEditor=date.edit();
+                   dateEditor.putInt("year",year);
+                   dateEditor.putInt("month",month);
+                   dateEditor.putInt("day",day);
+                   dateEditor.commit();
+               }
                Intent homeIntent=new Intent(Launcher.this,Home.class);
                startActivity(homeIntent);
                finish();
            }
        },3000);
-
-    }
-
-
-
-    public void recalculate(){
-       SharedPreferences moneyData=getSharedPreferences("moneydata",MODE_PRIVATE);
-        totalMoney = moneyData.getLong("totalmoney", 0);
-        numberOfDays = moneyData.getLong("numberofdays", -1);
-        oneDayMoney = moneyData.getLong("oneday", 0);
-        numberOfDays-=days;
-        if(totalMoney<0)
-            return;
-        else if(numberOfDays==0){
-            AlertDialog.Builder fineDialog = new AlertDialog.Builder(Launcher.this);
-            fineDialog.setMessage("الايام خلصت وباقى معاك" + totalMoney);
-            fineDialog.show();
-            SharedPreferences moneyData2 = getSharedPreferences("moneydata", MODE_PRIVATE);
-            SharedPreferences.Editor moneyDataEditor = moneyData2.edit();
-            moneyDataEditor.putLong("totalmoney", 0);
-            moneyDataEditor.putLong("numberofdays", numberOfDays);
-            moneyDataEditor.putLong("oneday", 0);
-            moneyDataEditor.commit();
-        }
-
-        oneDayMoney=totalMoney/numberOfDays;
-        SharedPreferences.Editor moneyDataEditor = moneyData.edit();
-        moneyDataEditor.putLong("totalmoney",  totalMoney);
-        moneyDataEditor.putLong("numberofdays", numberOfDays);
-        moneyDataEditor.putLong("oneday", (totalMoney / numberOfDays));
-        moneyDataEditor.commit();
 
     }
 }

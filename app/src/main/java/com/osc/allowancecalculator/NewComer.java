@@ -55,14 +55,16 @@ public class NewComer extends AppCompatActivity {
                 final int year=Date.get(Calendar.YEAR);
                 final int month=Date.get(Calendar.MONTH);
                 final int day=Date.get(Calendar.DAY_OF_MONTH);
+                SharedPreferences date=getSharedPreferences("date",MODE_PRIVATE);
+                SharedPreferences.Editor dateEditor=date.edit();
+                dateEditor.putInt("year",year);
+                dateEditor.putInt("month",month);
+                dateEditor.putInt("day",day);
+                dateEditor.commit();
                 DatePickerDialog datePicker=new DatePickerDialog(NewComer.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int endyear, int monthOfYear, int dayOfMonth) {
                         Calendar today=Calendar.getInstance();
-                        SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
-                        SharedPreferences.Editor moneyDataEditor = moneyData.edit();
-                        moneyDataEditor.putString("date",dayOfMonth+"/"+monthOfYear+"/"+endyear);
-                        moneyDataEditor.commit();
                         today.set(year,month,day);
                         Calendar endDate=Calendar.getInstance();
                         endDate.set(endyear,monthOfYear,dayOfMonth);
