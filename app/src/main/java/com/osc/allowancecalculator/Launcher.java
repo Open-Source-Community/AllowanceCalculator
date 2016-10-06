@@ -43,7 +43,7 @@ public class Launcher extends AppCompatActivity {
                    long diffenceInDays = difference / (24 * 60 * 60 * 1000);
                    SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
                    long numberOfDays = moneyData.getLong("numberofdays", -1);
-                   long newNumberOfDays=numberOfDays=diffenceInDays;
+                   long newNumberOfDays=numberOfDays-diffenceInDays;
                    SharedPreferences.Editor moneydataEditor=moneyData.edit();
                    moneydataEditor.putLong("numberofdays",newNumberOfDays);
                    moneydataEditor.commit();
