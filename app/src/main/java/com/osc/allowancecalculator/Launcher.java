@@ -39,7 +39,7 @@ public class Launcher extends AppCompatActivity {
                    today.set(year, month, day);
                    Calendar endDate = Calendar.getInstance();
                    endDate.set(lastyear, lastmonth, lastday);
-                   long difference = endDate.getTimeInMillis() - today.getTimeInMillis();
+                   long difference = today.getTimeInMillis() - endDate.getTimeInMillis();
                    long diffenceInDays = difference / (24 * 60 * 60 * 1000);
                    SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
                    long numberOfDays = moneyData.getLong("numberofdays", -1);

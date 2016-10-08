@@ -118,7 +118,8 @@ public class Home extends AppCompatActivity {
                 moneyDataEditor.putFloat("oneday", oneDayMoney);
                 moneyDataEditor.commit();
                 totalMoneyTextView.setText(totalMoney + "");
-                dayMoneyTextView.setText(oneDayMoney + "");
+                String result = String.format("%.3f", oneDayMoney);
+                dayMoneyTextView.setText(result);
                 moneyvalue.setText("");
             }
         }
@@ -135,7 +136,8 @@ public class Home extends AppCompatActivity {
                 moneyDataEditor.putFloat("oneday", oneDayMoney);
                 moneyDataEditor.commit();
                 totalMoneyTextView.setText(totalMoney + "");
-                dayMoneyTextView.setText(oneDayMoney + "");
+                String result = String.format("%.3f", oneDayMoney);
+                dayMoneyTextView.setText(result);
                 moneyvalue.setText("");
             }
         }
