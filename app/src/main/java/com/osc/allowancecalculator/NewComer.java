@@ -99,7 +99,7 @@ public class NewComer extends AppCompatActivity {
                 dateEditor.putInt("year", year);
                 dateEditor.putInt("month", month);
                 dateEditor.putInt("day", day);
-                dateEditor.commit();
+                dateEditor.apply();
                 DatePickerDialog datePicker = new DatePickerDialog(NewComer.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int endyear, int monthOfYear, int dayOfMonth) {

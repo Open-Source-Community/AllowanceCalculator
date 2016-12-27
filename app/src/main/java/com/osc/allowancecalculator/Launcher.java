@@ -21,7 +21,6 @@ public class Launcher extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Intent homeIntent = new Intent(Launcher.this, HomeActvity.class);
                 startActivity(homeIntent);
                 finish();
@@ -48,17 +47,17 @@ public class Launcher extends AppCompatActivity {
             endDate.set(lastyear, lastmonth, lastday);
             long difference = today.getTimeInMillis() - endDate.getTimeInMillis();
             long diffenceInDays = difference / (24 * 60 * 60 * 1000);
-            SharedPreferences moneyData = getSharedPreferences("moneydata", MODE_PRIVATE);
-            long numberOfDays = moneyData.getLong("numberofdays", -1);
+            SharedPreferences moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
+            long numberOfDays = moneyData.getLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, -1);
             long newNumberOfDays = numberOfDays - diffenceInDays;
             SharedPreferences.Editor moneydataEditor = moneyData.edit();
-            moneydataEditor.putLong("numberofdays", newNumberOfDays);
-            moneydataEditor.commit();
+            moneydataEditor.putLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, newNumberOfDays);
+            moneydataEditor.apply();
             SharedPreferences.Editor dateEditor = date.edit();
             dateEditor.putInt("year", year);
             dateEditor.putInt("month", month);
             dateEditor.putInt("day", day);
-            dateEditor.commit();
+            dateEditor.apply();
         }
     }
 }
