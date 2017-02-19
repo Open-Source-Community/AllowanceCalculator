@@ -50,7 +50,7 @@
 
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.08"
             android:background="@android:color/transparent"
             android:onClick="ButtonClick"
             android:tag="1"
@@ -167,7 +167,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
 
@@ -198,21 +198,23 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@android:drawable/screen_background_light_transparent"
             android:onClick="Sub"
-            android:text="-"
-            android:textColor="#3F51B5"
-            android:textSize="50sp" />
+            android:text="سحب"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
+            android:backgroundTint="@android:color/holo_red_light" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@android:drawable/screen_background_light_transparent"
             android:onClick="Add"
-            android:text="+"
-            android:textColor="#3F51B5"
-            android:textSize="50sp" />
+            android:text="إيداع"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
+            android:backgroundTint="@android:color/holo_green_light" />
 
     </LinearLayout>
 </LinearLayout>
