@@ -13,11 +13,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class NewComer extends AppCompatActivity {
     long numberOfDays = 0;
+    SharedPreferences moneyData;
+    SharedPreferences.Editor moneyDataEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,7 @@ public class NewComer extends AppCompatActivity {
                     moneyDataEditor.putFloat("totalmoney", money);
                     moneyDataEditor.putLong("numberofdays", numberOfDays);
                     moneyDataEditor.commit();
+                    setDateOfLastRecalculation();
                     Intent homeIntent = new Intent(NewComer.this, HomeActivity.class);
                     startActivity(homeIntent);
                     finish();
@@ -125,7 +131,16 @@ public class NewComer extends AppCompatActivity {
                 datePicker.show();
             }
         });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void setDateOfLastRecalculation()
+    {
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
+        moneyDataEditor = moneyData.edit();
+        moneyDataEditor.putString(SharedPreferencesUtils.DATE_OF_LAST_RECALCULATION_KEY, currentDate);
+        moneyDataEditor.commit();
+    }
 }

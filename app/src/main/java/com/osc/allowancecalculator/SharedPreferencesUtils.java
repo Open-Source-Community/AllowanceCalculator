@@ -10,4 +10,5 @@ public class SharedPreferencesUtils {
     public static final String ONE_DAY_KEY = "oneday";
 
     public static final String NUMBER_OF_DAYS_KEY = "numberofdays";
+    public static final String DATE_OF_LAST_RECALCULATION_KEY = "dateoflastrecalculation";
 }
