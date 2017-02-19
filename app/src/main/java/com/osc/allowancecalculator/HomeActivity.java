@@ -15,7 +15,7 @@ import java.util.Locale;
 import static com.osc.allowancecalculator.SharedPreferencesUtils.ONE_DAY_KEY;
 import static com.osc.allowancecalculator.SharedPreferencesUtils.TOTAL_MONEY_KEY;
 
-public class HomeActvity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     float oneDayMoney;
     long numberOfDays;
     float totalMoney;
@@ -41,7 +41,7 @@ public class HomeActvity extends AppCompatActivity {
         moneyDataEditor.putFloat(SharedPreferencesUtils.ONE_DAY_KEY, oneDayMoney);
         moneyDataEditor.apply();
         if (totalMoney == -1 && numberOfDays == -1) {
-            Intent newComerIntent = new Intent(HomeActvity.this, NewComer.class);
+            Intent newComerIntent = new Intent(HomeActivity.this, NewComer.class);
             startActivity(newComerIntent);
             finish();
         }
@@ -79,7 +79,7 @@ public class HomeActvity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the HomeActvity/Up button, so long
+        // automatically handle clicks on the HomeActivity/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
