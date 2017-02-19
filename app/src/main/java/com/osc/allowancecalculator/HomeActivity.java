@@ -10,7 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.Console;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.osc.allowancecalculator.SharedPreferencesUtils.ONE_DAY_KEY;
@@ -33,12 +34,30 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
+        moneyDataEditor = moneyData.edit();
+        totalMoney = moneyData.getFloat(SharedPreferencesUtils.TOTAL_MONEY_KEY, -1);
+        numberOfDays = moneyData.getLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, -1);
+        oneDayMoney = moneyData.getFloat(SharedPreferencesUtils.ONE_DAY_KEY, -1);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        recalculate();
+
+        // making sure a recalculation only happens once a day
+        if ( ! currentDateEqualsDateOfLastRecalculation() )
+            recalculate();
+        updateTextFields();
+    }
+
+    private boolean currentDateEqualsDateOfLastRecalculation()
+    {
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String dateOfLastRecalculation;
+        dateOfLastRecalculation = moneyData.getString(SharedPreferencesUtils.DATE_OF_LAST_RECALCULATION_KEY, "");
+        return currentDate.equals( dateOfLastRecalculation );
     }
 
 
@@ -46,19 +65,20 @@ public class HomeActivity extends AppCompatActivity {
     // the remaining number of days to the remaining money
     // and updated the Views accordingly
     public void recalculate() {
-        moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
-        totalMoney = moneyData.getFloat(SharedPreferencesUtils.TOTAL_MONEY_KEY, -1);
-        numberOfDays = moneyData.getLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, -1);
         oneDayMoney = totalMoney / numberOfDays;
-        moneyDataEditor = moneyData.edit();
         moneyDataEditor.putFloat(SharedPreferencesUtils.ONE_DAY_KEY, oneDayMoney);
-        moneyDataEditor.apply();
+        moneyDataEditor.commit();
         if (totalMoney == -1 && numberOfDays == -1) {
             Intent newComerIntent = new Intent(HomeActivity.this, NewComer.class);
             startActivity(newComerIntent);
             finish();
         }
 
+        setDateOfLastRecalculation();
+    }
+
+    private void updateTextFields()
+    {
         totalMoneyTextView = (TextView) findViewById(R.id.total);
         dayMoneyTextView = (TextView) findViewById(R.id.day);
         moneyValueTextView = (TextView) findViewById(R.id.moneyvalue);
@@ -73,6 +93,14 @@ public class HomeActivity extends AppCompatActivity {
             moneyDataEditor.putFloat(ONE_DAY_KEY, 0);
             moneyDataEditor.apply();
         }
+    }
+
+    private void setDateOfLastRecalculation()
+    {
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
+        moneyDataEditor.putString(SharedPreferencesUtils.DATE_OF_LAST_RECALCULATION_KEY, currentDate);
+        moneyDataEditor.apply();
     }
 
     public void ButtonClick(View view) {
