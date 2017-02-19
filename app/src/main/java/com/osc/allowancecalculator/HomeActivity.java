@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.Console;
 import java.util.Locale;
 
 import static com.osc.allowancecalculator.SharedPreferencesUtils.ONE_DAY_KEY;
@@ -32,7 +33,19 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recalculate();
+    }
+
+
+    // This method recalculates the allowance by dividing
+    // the remaining number of days to the remaining money
+    // and updated the Views accordingly
+    public void recalculate() {
         moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
         totalMoney = moneyData.getFloat(SharedPreferencesUtils.TOTAL_MONEY_KEY, -1);
         numberOfDays = moneyData.getLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, -1);
@@ -54,7 +67,6 @@ public class HomeActivity extends AppCompatActivity {
         String result = String.format(Locale.getDefault(), "%.3f", oneDayMoney);
         dayMoneyTextView.setText(result);
 
-        // this condition moved to recalculator function,  we may remove it later
         if (numberOfDays == 0) {
             moneyDataEditor.putFloat(TOTAL_MONEY_KEY, 0);
             moneyDataEditor.putLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, numberOfDays);
