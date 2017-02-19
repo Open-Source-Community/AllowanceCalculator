@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Allowance Calculator</string>
+    <string name="app_name">المـحفظة</string>
     <string name="action_new">New</string>
-    <string name="title_activity_new_comer">New Comer</string>
-    <string name="title_activity_launcher">Launcher</string>
+    <string name="title_activity_new_comer">فلـوس جـديـدة</string>
+    <string name="title_activity_launcher">المـحفظة</string>
+    <string name="zero">0.0</string>
+    <string name="activity_home_total_money">المبلغ الكلى</string>
+    <string name="activity_home_allowance">المصروف</string>
 </resources>

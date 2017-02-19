@@ -10,12 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.Console;
 import java.util.Locale;
 
 import static com.osc.allowancecalculator.SharedPreferencesUtils.ONE_DAY_KEY;
 import static com.osc.allowancecalculator.SharedPreferencesUtils.TOTAL_MONEY_KEY;
 
-public class HomeActvity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     float oneDayMoney;
     long numberOfDays;
     float totalMoney;
@@ -32,7 +33,19 @@ public class HomeActvity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recalculate();
+    }
+
+
+    // This method recalculates the allowance by dividing
+    // the remaining number of days to the remaining money
+    // and updated the Views accordingly
+    public void recalculate() {
         moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
         totalMoney = moneyData.getFloat(SharedPreferencesUtils.TOTAL_MONEY_KEY, -1);
         numberOfDays = moneyData.getLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, -1);
@@ -41,7 +54,7 @@ public class HomeActvity extends AppCompatActivity {
         moneyDataEditor.putFloat(SharedPreferencesUtils.ONE_DAY_KEY, oneDayMoney);
         moneyDataEditor.apply();
         if (totalMoney == -1 && numberOfDays == -1) {
-            Intent newComerIntent = new Intent(HomeActvity.this, NewComer.class);
+            Intent newComerIntent = new Intent(HomeActivity.this, NewComer.class);
             startActivity(newComerIntent);
             finish();
         }
@@ -54,7 +67,6 @@ public class HomeActvity extends AppCompatActivity {
         String result = String.format(Locale.getDefault(), "%.3f", oneDayMoney);
         dayMoneyTextView.setText(result);
 
-        // this condition moved to recalculator function,  we may remove it later
         if (numberOfDays == 0) {
             moneyDataEditor.putFloat(TOTAL_MONEY_KEY, 0);
             moneyDataEditor.putLong(SharedPreferencesUtils.NUMBER_OF_DAYS_KEY, numberOfDays);
@@ -79,7 +91,7 @@ public class HomeActvity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the HomeActvity/Up button, so long
+        // automatically handle clicks on the HomeActivity/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 

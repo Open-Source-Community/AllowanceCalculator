@@ -80,7 +80,7 @@ public class NewComer extends AppCompatActivity {
                     moneyDataEditor.putFloat("totalmoney", money);
                     moneyDataEditor.putLong("numberofdays", numberOfDays);
                     moneyDataEditor.commit();
-                    Intent homeIntent = new Intent(NewComer.this, HomeActvity.class);
+                    Intent homeIntent = new Intent(NewComer.this, HomeActivity.class);
                     startActivity(homeIntent);
                     finish();
                 }
