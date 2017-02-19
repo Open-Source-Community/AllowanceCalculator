@@ -31,6 +31,9 @@ public class NewComer extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
+        moneyDataEditor = moneyData.edit();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +88,7 @@ public class NewComer extends AppCompatActivity {
                     moneyDataEditor.putFloat("totalmoney", money);
                     moneyDataEditor.putLong("numberofdays", numberOfDays);
                     moneyDataEditor.commit();
+                    setOneDayMoney(money);
                     setDateOfLastRecalculation();
                     Intent homeIntent = new Intent(NewComer.this, HomeActivity.class);
                     startActivity(homeIntent);
@@ -138,9 +142,15 @@ public class NewComer extends AppCompatActivity {
     private void setDateOfLastRecalculation()
     {
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        moneyData = getSharedPreferences(SharedPreferencesUtils.MONEY_DATA_PREFERENCE_FILE_NAME, MODE_PRIVATE);
-        moneyDataEditor = moneyData.edit();
         moneyDataEditor.putString(SharedPreferencesUtils.DATE_OF_LAST_RECALCULATION_KEY, currentDate);
+        moneyDataEditor.commit();
+    }
+
+    // This method recalculates the allowance by dividing
+    // the remaining number of days to the remaining money
+    private void setOneDayMoney(float totalMoney) {
+        float oneDayMoney = totalMoney / numberOfDays;
+        moneyDataEditor.putFloat(SharedPreferencesUtils.ONE_DAY_KEY, oneDayMoney);
         moneyDataEditor.commit();
     }
 }

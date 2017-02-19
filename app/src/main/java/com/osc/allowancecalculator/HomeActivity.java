@@ -63,8 +63,7 @@ public class HomeActivity extends AppCompatActivity {
 
     // This method recalculates the allowance by dividing
     // the remaining number of days to the remaining money
-    // and updated the Views accordingly
-    public void recalculate() {
+    private void recalculate() {
         oneDayMoney = totalMoney / numberOfDays;
         moneyDataEditor.putFloat(SharedPreferencesUtils.ONE_DAY_KEY, oneDayMoney);
         moneyDataEditor.commit();
